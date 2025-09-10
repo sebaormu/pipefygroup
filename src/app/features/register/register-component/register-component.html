@@ -1,14 +1,6 @@
 <!-- HTML -->
 <div class="container-register">
     <div class="register-layout">
-        <!-- Left side - Welcome message -->
-        <div class="welcome-section">
-            <div class="welcome-content">
-                <h1>Crea tu cuenta</h1>
-                <p>Explora las características principales para y elija tu plan ahora.</p>
-            </div>
-        </div>
-
         <!-- Right side - Registration form -->
         <div class="form-section">
             <form tuiAppearance="floating" tuiCardLarge tuiForm="m" [formGroup]="form" class="form-register" (ngSubmit)="register()">
@@ -18,6 +10,13 @@
                     </div>
                     <h2>Regístrate en pipefygroup</h2>
                 </header>
+                @if (errorMessage() != '') {
+                    <tui-notification appearance="warning">
+                        <h3 tuiTitle>
+                            <span tuiSubtitle>{{ errorMessage() }}</span>
+                        </h3>
+                    </tui-notification>
+                }
 
                 <tui-textfield>
                     <label tuiLabel>Nombre completo</label>
@@ -30,7 +29,7 @@
                 <div class="form-fields">
                     <tui-textfield>
                         <label tuiLabel>Email</label>
-                        <input formControlName="email" placeholder="Ingresa tu email" tuiTextfield type="email" />
+                        <input formControlName="email" placeholder="Ingresa tu email" tuiTextfield />
                     </tui-textfield>
                     @if (fieldIsValid('email')) {
                         <tui-error [error]="errorField('email')" />
@@ -58,7 +57,7 @@
                 </div>
 
                 <footer class="form-footer">
-                    <button tuiButton type="submit" class="submit-register">Crear cuenta</button>
+                    <button tuiButton type="submit" class="submit-register" [disabled]="isLoading() || form.invalid" >Crear cuenta</button>
 
                     <div class="terms-text">
                         Al hacer clic en "Crear cuenta", aceptas nuestros 

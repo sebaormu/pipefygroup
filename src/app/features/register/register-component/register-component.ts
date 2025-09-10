@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterModule } from '@angular/router';
-import { TuiAppearance, TuiButton, TuiError, TuiTextfield } from '@taiga-ui/core';
+import { Router, RouterModule } from '@angular/router';
+import { TuiAlertService, TuiAppearance, TuiButton, TuiError, TuiNotification, TuiTextfield } from '@taiga-ui/core';
 import { TuiFieldErrorPipe } from '@taiga-ui/kit';
 import { TuiCardLarge, TuiForm } from '@taiga-ui/layout';
 import { COUNTRY } from '../../../core/models/country.model';
@@ -20,7 +20,7 @@ import { SignUpWithPasswordCredentials } from '@supabase/supabase-js';
     TuiButton,
     TuiCardLarge,
     TuiError,
-    TuiFieldErrorPipe,
+    TuiNotification,
     TuiForm,
     TuiTextfield, RouterModule],
   templateUrl: './register-component.html',
@@ -31,11 +31,14 @@ export class RegisterComponent {
   country = COUNTRY;
   countrySelected = 'Colombia';
   errorMessage = signal('');
+  isLoading = signal(false);
 
 
   constructor(
     private readonly formValidate: FormValidateService,
     private readonly supabaseService: SupabaseService,
+    private readonly alertService: TuiAlertService,
+    private readonly router: Router
   ){}
 
 
@@ -50,10 +53,12 @@ export class RegisterComponent {
   register(): void {
     if (this.form.invalid) return;
     this.errorMessage.set('');
+    this.isLoading.set(true);
 
     this.supabaseService.signUp(this.buildUserRegister())
       .pipe(
         finalize(() => {
+          this.isLoading.set(false);
         }),
         catchError((err) => {
           this.handleAuthError(err);
@@ -66,6 +71,8 @@ export class RegisterComponent {
         if (response.error) {
           this.handleAuthError(response.error);
         } else {
+          this.alertService.open('Usuario registrado correctamente').subscribe();
+          this.router.navigate(['/login']);
         }
       });
     }
