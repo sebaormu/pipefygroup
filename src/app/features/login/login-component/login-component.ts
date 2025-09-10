@@ -65,7 +65,7 @@ export class LoginComponent {
             this.handleAuthError(response.error);
             return;
           }
-          this.router.navigate(['/register']);
+          this.router.navigate(['/dashboard']);
         },
         error: (error) => {
           this.handleAuthError(error);
