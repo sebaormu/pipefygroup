@@ -1,0 +1,77 @@
+<!-- HTML -->
+<div class="container-register">
+    <div class="register-layout">
+        <!-- Left side - Welcome message -->
+        <div class="welcome-section">
+            <div class="welcome-content">
+                <h1>Crea tu cuenta</h1>
+                <p>Explora las características principales para y elija tu plan ahora.</p>
+            </div>
+        </div>
+
+        <!-- Right side - Registration form -->
+        <div class="form-section">
+            <form tuiAppearance="floating" tuiCardLarge tuiForm="m" [formGroup]="form" class="form-register" (ngSubmit)="register()">
+                <header class="form-header">
+                    <div class="header-card">
+                        <img src="assets/img/logo.png" alt="Logo Empresa" class="logo">
+                    </div>
+                    <h2>Regístrate en pipefygroup</h2>
+                </header>
+
+                <tui-textfield>
+                    <label tuiLabel>Nombre completo</label>
+                    <input formControlName="fullName" placeholder="Ingresa un nombre de usuario" tuiTextfield />
+                </tui-textfield>
+                @if (fieldIsValid('fullName')) {
+                    <tui-error [error]="errorField('fullName')" />
+                }
+
+                <div class="form-fields">
+                    <tui-textfield>
+                        <label tuiLabel>Email</label>
+                        <input formControlName="email" placeholder="Ingresa tu email" tuiTextfield type="email" />
+                    </tui-textfield>
+                    @if (fieldIsValid('email')) {
+                        <tui-error [error]="errorField('email')" />
+                    }
+
+                    <div class="country-field">
+                        <label class="country-label">Tu País/Región</label>
+                        <select formControlName="country" class="country-select">
+                            @for (item of country; track $index) {
+                                <option value="{{item}}" [selected]="item === countrySelected">{{item}}</option>
+                            }
+                        </select>
+                    </div>
+
+                    <tui-textfield>
+                        <label tuiLabel>Contraseña</label>
+                        <input formControlName="password" placeholder="Crea una contraseña" tuiTextfield type="password" />
+                    </tui-textfield>
+                    @if (fieldIsValid('password')) {
+                        <tui-error [error]="errorField('password')" />
+                    }
+                    <div class="password-hint">
+                        La contraseña debe tener al menos 8 caracteres incluyendo un número y una letra minúscula.
+                    </div>
+                </div>
+
+                <footer class="form-footer">
+                    <button tuiButton type="submit" class="submit-register">Crear cuenta</button>
+
+                    <div class="terms-text">
+                        Al hacer clic en "Crear cuenta", aceptas nuestros 
+                        <a href="#" class="terms-link">Términos de Servicio</a> y 
+                        <a href="#" class="terms-link">Política de Privacidad</a>.
+                    </div>
+
+                    <div class="login-link">
+                        ¿Ya tienes una cuenta? 
+                        <a class="link" [routerLink]="['/login']">Iniciar sesión</a>
+                    </div>
+                </footer>
+            </form>
+        </div>
+    </div>
+</div>

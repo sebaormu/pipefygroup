@@ -1,0 +1,287 @@
+/* CSS */
+.container-register {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    padding: 1rem;
+    box-sizing: border-box;
+    background: white;
+}
+
+form.form-register {
+    max-width: 500px !important;
+    width: 100% !important;
+    box-sizing: border-box;
+    padding: 3rem 2rem 2rem 2rem !important;
+    background: white !important;
+    border-radius: 12px !important;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12) !important;
+    margin: 0 !important;
+}
+
+.form-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.form-header h2 {
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: #24292f;
+    margin: 0;
+}
+
+.form-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Input styling */
+tui-textfield {
+    width: 100%;
+}
+
+tui-textfield input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #d0d7de;
+    border-radius: 6px;
+    font-size: 14px;
+    background-color: #f6f8fa;
+    transition: border-color 0.2s, background-color 0.2s;
+}
+
+tui-textfield input:focus {
+    border-color: #0969da;
+    background-color: white;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(9, 105, 218, 0.1);
+}
+
+tui-textfield label {
+    font-weight: 600;
+    color: #24292f;
+    font-size: 14px;
+    margin-bottom: 8px;
+    display: block;
+}
+
+/* Password hint */
+.password-hint {
+    font-size: 12px;
+    color: #656d76;
+    margin-top: 4px;
+    line-height: 1.4;
+}
+
+/* Country field */
+.country-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.country-label {
+    font-weight: 600;
+    color: #24292f;
+    font-size: 14px;
+}
+
+.country-select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #d0d7de;
+    border-radius: 6px;
+    font-size: 14px;
+    background-color: #f6f8fa;
+    cursor: pointer;
+    transition: border-color 0.2s, background-color 0.2s;
+}
+
+.country-select:focus {
+    border-color: #0969da;
+    background-color: white;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(9, 105, 218, 0.1);
+}
+
+/* Form footer */
+.form-footer {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.submit-register {
+    background-color: #105707;
+    color: white;
+    font-weight: 500;
+    padding: 0.7rem;
+    border-radius: 9999px;
+    transition: all 0.2s;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+.submit-register:hover {
+    background-color: #0d4605;
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    margin: 0.75rem 0 0.5rem 0;
+}
+
+.divider::before,
+.divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #e1e4e8;
+}
+
+.divider span {
+    padding: 0 12px;
+    font-size: 12px;
+    color: #586069;
+    font-weight: 600;
+    text-transform: lowercase;
+}
+
+.terms-text {
+    font-size: 12px;
+    color: #656d76;
+    text-align: center;
+    line-height: 1.4;
+}
+
+.terms-link {
+    color: #0969da;
+    text-decoration: none;
+}
+
+.terms-link:hover {
+    text-decoration: underline;
+}
+
+.login-link {
+    text-align: center;
+    font-size: 14px;
+    color: #656d76;
+    padding: 1rem 0;
+    border-top: 1px solid #d0d7de;
+}
+
+.login-link .link {
+    color: #0969da;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.login-link .link:hover {
+    text-decoration: underline;
+}
+
+/* Error styling */
+tui-error {
+    font-size: 12px;
+    color: #cf222e;
+    margin-top: 4px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .register-layout {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .welcome-content h1 {
+        font-size: 2rem;
+    }
+    
+    .container-register {
+        padding: 1rem;
+    }
+    
+    .form-section {
+        padding: 1.5rem;
+    }
+}
+
+header[tuiHeader] {
+  display: flex;
+  flex-direction: column;  
+  align-items: center;     
+  text-align: center;      
+}
+
+.header-card {
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo {
+  max-width: 160px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.google-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: .6rem;
+    width: 100%;
+    /* ocupa 100% del contenedor (tabs) */
+    padding: .75rem 1rem;
+    border-radius: 9999px;
+    /* pill */
+    font-weight: 600;
+    border: 1px solid #e5e7eb;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform .02s ease, box-shadow .2s ease;
+    user-select: none;
+  }
+  
+  .google-btn .g-icon {
+    display: inline-flex;
+  }
+  
+  .google-btn .label {
+    line-height: 1;
+  }
+  
+  .google-btn.white {
+    background: #fff;
+    color: #000;
+    border-color: #d1d5db;
+  }
+  
+  .google-btn.white:hover {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, .06);
+  }
+  
+  .google-btn.black {
+    background: #000;
+    color: #fff;
+    border-color: #000;
+  }
+  
+  .google-btn.black:hover {
+    box-shadow: 0 2px 14px rgba(0, 0, 0, .25);
+  }
+  
+  .google-btn:active {
+    transform: translateY(1px);
+  }
+  
