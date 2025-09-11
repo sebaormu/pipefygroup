@@ -1,4 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { TuiButton, TuiIcon } from '@taiga-ui/core';
+import { TuiCardLarge, TuiNavigation } from '@taiga-ui/layout';
+import { TuiAvatar } from '@taiga-ui/kit';
 
 @Component({
   selector: 'app-home-component',
@@ -7,5 +11,5 @@ import { Component } from '@angular/core';
   styleUrl: './home-component.css'
 })
 export class HomeComponent {
-
+  
 }

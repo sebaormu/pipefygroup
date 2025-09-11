@@ -1,10 +1,17 @@
 import { Routes } from '@angular/router';
+import { SidebarComponent } from './features/shared/sidebar-component/sidebar-component';
 
 export const routes: Routes = [
   {
-    path: 'dashboard',
-    //canActivate: [publicGuard],
-    loadChildren: () => import('./features/dashboard/dashboard.routes').then(m => m.DASHBOARD_ROUTES)
+    path: '',
+    component: SidebarComponent,
+    children: [
+      { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+      {
+        path: 'dashboard',
+        loadChildren: () => import('./features/dashboard/dashboard.routes').then(m => m.DASHBOARD_ROUTES)
+      }
+    ]
   },
   {
     path: 'login',
