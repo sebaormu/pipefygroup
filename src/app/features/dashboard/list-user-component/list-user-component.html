@@ -1,1 +1,35 @@
-<p>list-user-component works!</p>
+<div class="dashboard-container">
+    <div class="card-container">
+        <div class="large-card">
+            <h2>Lista de usuarios</h2>
+            <table tuiTable [style.width.rem]="36" class="mt-1">
+                <thead>
+                    <tr tuiThGroup>
+                        <th tuiTh>Id</th>
+                        <th tuiTh>Nombre completo</th>
+                        <th tuiTh>Email</th>
+                        <th tuiTh>ROL</th>
+                        <th tuiTh>Estado</th>
+                        <th tuiTh>Ver</th>
+                    </tr>
+                </thead>
+                <tbody tuiTbody>
+                    @for (item of this.listUsers(); track $index) {
+                        <tr >
+                        <td tuiTd>{{ item.id }}</td>
+                        <td tuiTd>{{ item.full_name }}</td>
+                        <td tuiTd>{{ item.email }}</td>
+                        <td tuiTd>{{ item.role }}</td>
+                        <td tuiTd>{{ item.status }}</td>
+                        <td tuiTd><tui-icon icon="@tui.eye"></tui-icon></td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+            <div class="table-footer">
+                <tui-pagination [length]="length" [index]="index" (indexChange)="onPageChange($event)"
+                    class="pagination"></tui-pagination>
+            </div>
+        </div>
+    </div>
+</div>
