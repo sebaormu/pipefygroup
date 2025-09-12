@@ -162,35 +162,22 @@ export class SupabaseService {
       );
   }
 
-  /**
-   * Verifica si hay una sesión activa y carga el usuario
-   * @private
-   */
-  private loadUser(): void {
-    from(this.supabase.auth.getSession())
+  loadUser(): Observable<any> {
+    return from(this.supabase.auth.getSession())
       .pipe(
-        tap(response => {
+        map(response => {
           const session = response.data.session;
           if (session) {
             this.setSession(session.user);
+            return response;
           }
+          return null;
         }),
         catchError(error => {
           console.error('Error al cargar la sesión:', error);
           return of(null);
         })
-      )
-      .subscribe();
-
-    // Suscripción a cambios en la autenticación
-    this.supabase.auth.onAuthStateChange((event, session) => {
-      if (event === 'SIGNED_IN' && session?.user) {
-        this.setSession(session.user);
-      } else if (event === 'SIGNED_OUT') {
-        this.currentUser.next(null);
-        this.isAuthenticated.next(false);
-      }
-    });
+      );
   }
 
   /**
@@ -267,11 +254,10 @@ export class SupabaseService {
   }
 
   
-  isLoggedIn(token: string | undefined): Observable<boolean> {
+  isLoggedIn(): Observable<boolean> {
     return this.http.get('https://nzgpjblqnjwjisobugse.supabase.co/functions/v1/isLogin')
     .pipe(
       map(response => {
-        console.log("response", response)
         const res = response as { loggedIn: boolean };
         if(res.loggedIn){
           return true;
@@ -284,7 +270,6 @@ export class SupabaseService {
   getToken(): Observable<String> {
     return from(this.supabase.auth.getSession()).pipe(
       map(response => {
-        console.log(response)
         return response.data.session?.access_token || '';
       })
     );

@@ -10,7 +10,24 @@
                 <h1>EcomFy</h1>
             </div>
             <div class="user-section">
-                <tui-avatar size="s" text="Usuario"></tui-avatar>
+                <p class="user-email">{{email()}}</p>
+                <tui-avatar icon="@tui.user" size="m" text="Usuario" tuiDropdownAlign="right" tuiLink type="button"
+                    class="link" [tuiDropdown]="dropdown" [(tuiDropdownOpen)]="open"></tui-avatar>
+
+                <ng-template #dropdown>
+                    <tui-data-list>
+                        <tui-opt-group>
+                            @for(item of items; track $index) {
+                            <button tuiOption type="button" class="item" (click)="onClick(item.onClick)">
+                                {{ item.item }}
+                                <!--<tui-icon icon="@tui.check" />-->
+                            </button>
+                            }
+
+                        </tui-opt-group>
+                    </tui-data-list>
+                </ng-template>
+
             </div>
         </div>
     </header>
