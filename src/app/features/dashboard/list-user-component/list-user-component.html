@@ -1,13 +1,17 @@
 <div class="dashboard-container" style="background-color: #fff; padding: 15px; border-radius: 10px;">
     <div class="card-container">
         
-        <form tuiAppearance="floating" tuiCardLarge tuiForm="m" style="width: 50%;" (ngSubmit)="search()" [formGroup]="form" >
+        <div tuiAppearance="floating" tuiCardLarge tuiForm="m" style="width: 50%;" [formGroup]="form">
             <tui-textfield>
-            <label tuiLabel>Buscar usuarios</label>
-            <input  formControlName="search" placeholder="Escriba el nombre del usuario" tuiTextfield />
-        </tui-textfield>
-        <tui-error [error]="[] | tuiFieldError | async" />
-        </form>
+                <label tuiLabel>Buscar usuarios</label>
+                <input formControlName="search" 
+                       placeholder="Escriba el nombre del usuario" 
+                       tuiTextfield 
+                       (blur)="search()"
+                       (keyup.enter)="search()"/>
+            </tui-textfield>
+            <tui-error [error]="[] | tuiFieldError | async" />
+        </div>
         
         <div class="table-wrapper mt-1">
             <table tuiTable>

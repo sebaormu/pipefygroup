@@ -36,7 +36,7 @@ export class ListUserComponent implements OnInit {
   protected isLoading = true;
 
   protected index = 0;   
-  protected size = 10;   
+  protected size = 15;   
   protected length = 0; 
   
   protected readonly form = new FormGroup({
@@ -60,7 +60,7 @@ export class ListUserComponent implements OnInit {
       .subscribe(list => {
         this.allUsers.set(list?.users)
         this.listUsers.set(list?.users);
-        this.length = this.listUsers().length / 10;
+        this.length = this.listUsers().length / 15;
       });
   }
 
@@ -82,12 +82,18 @@ export class ListUserComponent implements OnInit {
   }
 
   search(): void {
-    this.listUsers.set(this.allUsers());
-    this.listUsers.set(
-      this.listUsers().filter((user: any) => {
-        return user.full_name.includes(this.form.value.search!);
-      })
-    );  
-    this.length = this.listUsers().length / 10;
+    this.index = 0;
+    
+    if (!this.form.value.search) {
+      this.listUsers.set([...this.allUsers()]);
+    } else {
+      const searchTerm = this.form.value.search.toLowerCase();
+      const filteredUsers = this.allUsers().filter((user: any) => 
+        user.full_name?.toLowerCase().includes(searchTerm)
+      );
+      this.listUsers.set(filteredUsers);
+    }
+    
+    this.length = Math.ceil(this.listUsers().length / this.size);
   }
 }
