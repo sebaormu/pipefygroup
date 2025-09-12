@@ -46,6 +46,15 @@ export class SidebarComponent {
     }
   ];
 
+  itemsNav = [
+    {
+      'item':'/dashboard', 'icon':'@tui.home', 'title':'Dashboard'
+    },
+    {
+      'item':'/users', 'icon':'@tui.users', 'title':'Usuarios'
+    }
+  ]
+
   constructor(private readonly supabaseService: SupabaseService,
     private readonly router: Router
   ) { }

@@ -99,13 +99,13 @@
 
 .nav-item:hover {
     background: #f8f9fa;
-    color: #007bff;
+    color: #029468;
 }
 
 .nav-item.active {
-    background: #e3f2fd;
-    color: #1976d2;
-    border-left-color: #1976d2;
+    background: #e3fded;
+    color: #0d8a45;
+    border-left-color: #0d8a45;
 }
 
 /* Main Content */
