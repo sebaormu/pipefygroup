@@ -8,10 +8,14 @@ export const routes: Routes = [
     component: SidebarComponent,
     canActivate: [authGuard],
     children: [
-      { path: '', redirectTo: '', pathMatch: 'full' },
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       {
-        path: '',
+        path: 'dashboard',
         loadChildren: () => import('./features/dashboard/dashboard.routes').then(m => m.DASHBOARD_ROUTES)
+      },
+      {
+        path: 'users',
+        loadChildren: () => import('./features/dashboard/list-user-component/user.routes').then(m => m.USER_ROUTES)
       }
     ]
   },

@@ -1,19 +1,18 @@
 import { ChangeDetectionStrategy, Component, OnInit, signal } from '@angular/core';
 import { AsyncPipe, CommonModule } from '@angular/common';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { SupabaseService } from '../../../core/services/supabase/supabase-service';
-import { catchError, of, switchMap } from 'rxjs';
-import { TuiAppearance, TuiButton, TuiDataList, TuiDialogContext, TuiDialogService, TuiError, TuiLoader, TuiNotification, TuiScrollable, TuiTextfield } from '@taiga-ui/core';
+import { ActivatedRoute, RouterModule } from '@angular/router';
+import { TuiAppearance, TuiButton, TuiDataList, TuiDialogContext, TuiDialogService, TuiError, TuiTextfield } from '@taiga-ui/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { FormValidateService } from '../../../core/services/form-validate/form-validate-service';
-import { USER_REGISTRATION_VALIDATION, USER_UPDATE_VALIDATION } from '../../../core/validate/user.validate';
-import { TuiCardLarge, TuiForm, TuiHeader } from '@taiga-ui/layout';
-import { ROLES } from '../../../core/models/roles.model';
-import { TuiChevron, TuiSelect } from '@taiga-ui/kit';
+import { TuiCardLarge, TuiForm } from '@taiga-ui/layout';
+import { TuiSelect } from '@taiga-ui/kit';
 import { ScrollingModule } from '@angular/cdk/scrolling';
-import { STATUS_USER } from '../../../core/models/status-user.model';
-import { LANGUAGES } from '../../../core/models/language.model';
 import { type PolymorpheusContent } from '@taiga-ui/polymorpheus';
+import { ROLES } from '../../../../core/models/roles.model';
+import { STATUS_USER } from '../../../../core/models/status-user.model';
+import { LANGUAGES } from '../../../../core/models/language.model';
+import { SupabaseService } from '../../../../core/services/supabase/supabase-service';
+import { FormValidateService } from '../../../../core/services/form-validate/form-validate-service';
+import { USER_UPDATE_VALIDATION } from '../../../../core/validate/user.validate';
 
 
 @Component({
@@ -46,11 +45,11 @@ export class UpdateUserComponent implements OnInit {
   userId: string | null = null;
   user: any = null;
   isLoading = signal(false);
-  roles = ROLES
+  roles = ROLES;
   roleSelected = signal('')
   statusUser = STATUS_USER;
   statusSelected = signal('');
-  languageUser = LANGUAGES
+  languageUser = LANGUAGES;
   languageSeleted = signal('')
 
   protected readonly form = new FormGroup({
