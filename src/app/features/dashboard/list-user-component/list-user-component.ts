@@ -8,6 +8,7 @@ import { TuiContext, TuiStringHandler } from '@taiga-ui/cdk';
 import { TuiLet } from '@taiga-ui/cdk/directives/let';
 import { SupabaseService } from '../../../core/services/supabase/supabase-service';
 import { catchError, of, switchMap } from 'rxjs';
+import { RouterModule } from '@angular/router';
 
 
 @Component({
@@ -24,7 +25,8 @@ import { catchError, of, switchMap } from 'rxjs';
     TuiError,
     AsyncPipe,
     TuiFieldErrorPipe,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterModule
   ],
   templateUrl: './list-user-component.html',
   styleUrl: './list-user-component.css'
@@ -33,7 +35,6 @@ export class ListUserComponent implements OnInit {
   protected selectedUser: any = null;
   listUsers = signal<any[]>([]);
   allUsers = signal<any[]>([]);
-  protected isLoading = true;
 
   protected index = 0;   
   protected size = 15;   
@@ -51,12 +52,7 @@ export class ListUserComponent implements OnInit {
   }
 
   getAllUsers(): void {
-    this.isLoading = true;
-    this.supabaseService.handleAuthCallback()
-      .pipe(
-        switchMap(user => this.supabaseService.getAllUsers(user?.access_token)),
-        catchError(() => of({ users: [] }))
-      )
+    this.supabaseService.getAllUsers()
       .subscribe(list => {
         this.allUsers.set(list?.users)
         this.listUsers.set(list?.users);

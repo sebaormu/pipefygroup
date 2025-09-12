@@ -7,7 +7,7 @@
             </button>
             <div class="logo-section">
                 <img src="assets/img/logo.png" alt="EcomFy Logo" class="header-logo">
-                <h1>EcomFy Dashboard</h1>
+                <h1>EcomFy</h1>
             </div>
             <div class="user-section">
                 <tui-avatar size="s" text="Usuario"></tui-avatar>
@@ -21,12 +21,12 @@
             <div class="nav-section">
                 <h3 class="nav-title">FAVORITOS</h3>
                 <ul class="nav-list">
-                    <li><a class="nav-item active" [routerLink]="['/dashboard']">
+                    <li><a class="nav-item active" [routerLink]="['/']">
                             <tui-icon icon="@tui.home"></tui-icon>
                             Dashboard
                         </a>
                     </li>
-                    <li><a class="nav-item" [routerLink]="['/dashboard/users']">
+                    <li><a class="nav-item" [routerLink]="['/users']">
                             <tui-icon icon="@tui.users"></tui-icon>
                             Usuarios
                         </a>
@@ -58,7 +58,7 @@
                         </ul>
                     </li>
                 </ul>
-                <li><a class="nav-item">
+                <li><a class="nav-item" [routerLink]="['/register']">
                         <tui-icon icon="@tui.users"></tui-icon>
                         Equipo
                     </a>

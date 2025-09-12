@@ -1,0 +1,73 @@
+<div class="dashboard-container" style="background-color: #fff; padding: 20px; border-radius: 10px;">
+    <div class="header">
+        <a routerLink="/dashboard/users">← Volver a la lista</a>
+        <h4>Detalles del Usuario</h4>
+    </div>
+
+    @if (!isLoading()) {
+    <form tuiCardLarge tuiForm="m" [formGroup]="form">
+
+        <tui-textfield>
+            <label tuiLabel>Nombre completo</label>
+            <input formControlName="full_name" placeholder="Ingresa el nombre completo" tuiTextfield />
+        </tui-textfield>
+        @if (fieldIsValid('full_name')) {
+        <tui-error [error]="errorField('full_name')" />
+        }
+        <tui-textfield>
+            <label tuiLabel>Teléfono</label>
+            <input formControlName="phone" placeholder="Ingresa el número teléfonico" tuiTextfield />
+        </tui-textfield>
+        @if (fieldIsValid('phone')) {
+        <tui-error [error]="errorField('phone')" />
+        }
+        <tui-textfield>
+            <label tuiLabel>Email</label>
+            <input formControlName="email" placeholder="Ingresa tu email" tuiTextfield />
+        </tui-textfield>
+        @if (fieldIsValid('email')) {
+        <tui-error [error]="errorField('email')" />
+        }
+        <div class="select-field">
+            <label class="select-label">Rol/Tipo usuario</label>
+            <select formControlName="role" class="select-select">
+                @for (item of roles; track $index) {
+                <option value="{{item}}" [selected]="item === roleSelected()">{{item}}</option>
+                }
+            </select>
+        </div>
+        <div class="select-field">
+            <label class="select-label">Estado usuario</label>
+            <select formControlName="status" class="select-select">
+                @for (item of statusUser; track $index) {
+                <option value="{{item}}" [selected]="item === statusSelected()">{{item}}</option>
+                }
+            </select>
+        </div>
+        <div class="select-field">
+            <label class="select-label">Lenguaje</label>
+            <select formControlName="language" class="select-select">
+                @for (item of languageUser; track $index) {
+                <option value="{{item}}" [selected]="item === languageSeleted()">{{item}}</option>
+                }
+            </select>
+        </div>
+        @if (fieldIsValid('password')) {
+        <tui-error [error]="errorField('password')" />
+        }
+        <footer class="form-footer">
+            <button size="m" tuiButton type="button" class="submit-register" (click)="showDialog(template)">
+                Guardar
+            </button>
+        </footer>
+        <ng-template #template let-observer>
+            <p>¿Estás seguro de actualizar la información del usuario?</p>
+            <button size="m" tuiButton type="button" class="submit-register-auto" (click)="withdraw(observer)">
+                Aceptar
+            </button>
+        </ng-template>
+    </form>
+    }
+
+</div>
+  

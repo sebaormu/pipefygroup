@@ -1,0 +1,80 @@
+.submit-register {
+    background-color: #105707;
+    color: white;
+    font-weight: 500;
+    padding: 0.7rem;
+    border-radius: 8px;
+    transition: all 0.2s;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+.submit-register:hover {
+    background-color: #0d4605;
+}
+
+.submit-register-auto {
+    background-color: #105707;
+    color: white;
+    font-weight: 500;
+    padding: 0.7rem;
+    border-radius: 8px;
+    transition: all 0.2s;
+    border: none;
+    cursor: pointer;
+    width: auto;
+}
+
+.submit-register-auto:hover {
+    background-color: #0d4605;
+}
+
+tui-textfield {
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+@media (min-width: 768px) {
+    tui-textfield {
+        width: 50%;
+    }
+
+    .select-field {
+        width: 50%;
+    }
+
+    .submit-register {
+        width: 50%;
+    }
+}
+
+
+.select-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.select-label {
+    font-weight: 600;
+    color: #24292f;
+    font-size: 14px;
+}
+
+.select-select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #d0d7de;
+    border-radius: 6px;
+    font-size: 14px;
+    background-color: #ffffff;
+    cursor: pointer;
+    transition: border-color 0.2s, background-color 0.2s;
+}
+
+.select-select:focus {
+    border-color: #0969da;
+    background-color: white;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(9, 105, 218, 0.1);
+}

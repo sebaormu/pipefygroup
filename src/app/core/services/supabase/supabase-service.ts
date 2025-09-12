@@ -253,34 +253,40 @@ export class SupabaseService {
       );
   }
 
-  getAllUsers(token: string | undefined): Observable<any> {
-    const headers = new HttpHeaders(
-      {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json'
-      }
-    )
-    return this.http.get('https://nzgpjblqnjwjisobugse.supabase.co/functions/v1/get-all-uses', { headers });
+  getAllUsers(): Observable<any> {
+    return this.http.get('https://nzgpjblqnjwjisobugse.supabase.co/functions/v1/get-all-uses');
   }
 
-  getUserById(id: string, token: string | undefined): Observable<any> {
-    const headers = new HttpHeaders(
-      {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json'
-      }
-    )
-    return this.http.get(`https://nzgpjblqnjwjisobugse.supabase.co/functions/v1/get-user-id?id=${id}`, { headers });
+  getUserById(id: string): Observable<any> {
+    
+    return this.http.get(`https://nzgpjblqnjwjisobugse.supabase.co/functions/v1/get-user-id?id=${id}`);
   }
 
-  updateUser(id: string, full_name: string, role: string, phone: string, language: string, status: string, token: string | undefined): Observable<any> {
-    const headers = new HttpHeaders(
-      {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json'
-      }
-    )
-    console.log("status", role)
-    return this.http.post(`https://nzgpjblqnjwjisobugse.supabase.co/functions/v1/update-user`, {id, full_name, role, phone, language, status}, { headers });
+  updateUser(id: string, full_name: string , role: string, phone: string, language: string, status: string): Observable<any> {
+    return this.http.post(`https://nzgpjblqnjwjisobugse.supabase.co/functions/v1/update-user`, {id, full_name, role, phone, language, status});
+  }
+
+  
+  isLoggedIn(token: string | undefined): Observable<boolean> {
+    return this.http.get('https://nzgpjblqnjwjisobugse.supabase.co/functions/v1/isLogin')
+    .pipe(
+      map(response => {
+        console.log("response", response)
+        const res = response as { loggedIn: boolean };
+        if(res.loggedIn){
+          return true;
+        }
+        return false;
+      }), catchError(()=>of(false))
+    );
+  }
+
+  getToken(): Observable<String> {
+    return from(this.supabase.auth.getSession()).pipe(
+      map(response => {
+        console.log(response)
+        return response.data.session?.access_token || '';
+      })
+    );
   }
 }
