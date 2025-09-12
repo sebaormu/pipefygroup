@@ -1,35 +1,54 @@
-<div class="dashboard-container">
+<div class="dashboard-container" style="background-color: #fff; padding: 15px; border-radius: 10px;">
     <div class="card-container">
-        <div class="large-card">
-            <h2>Lista de usuarios</h2>
-            <table tuiTable [style.width.rem]="36" class="mt-1">
+        
+        <form tuiAppearance="floating" tuiCardLarge tuiForm="m" style="width: 50%;" (ngSubmit)="search()" [formGroup]="form" >
+            <tui-textfield>
+            <label tuiLabel>Buscar usuarios</label>
+            <input  formControlName="search" placeholder="Escriba el nombre del usuario" tuiTextfield />
+        </tui-textfield>
+        <tui-error [error]="[] | tuiFieldError | async" />
+        </form>
+        
+        <div class="table-wrapper mt-1">
+            <table tuiTable>
                 <thead>
                     <tr tuiThGroup>
-                        <th tuiTh>Id</th>
                         <th tuiTh>Nombre completo</th>
                         <th tuiTh>Email</th>
-                        <th tuiTh>ROL</th>
-                        <th tuiTh>Estado</th>
+                        <th tuiTh>status</th>
+                        <th tuiTh>Rol</th>
                         <th tuiTh>Ver</th>
                     </tr>
                 </thead>
                 <tbody tuiTbody>
-                    @for (item of this.listUsers(); track $index) {
-                        <tr >
-                        <td tuiTd>{{ item.id }}</td>
+                    @for (item of paginatedUsers; track $index) {
+                    <tr>
                         <td tuiTd>{{ item.full_name }}</td>
-                        <td tuiTd>{{ item.email }}</td>
-                        <td tuiTd>{{ item.role }}</td>
-                        <td tuiTd>{{ item.status }}</td>
-                        <td tuiTd><tui-icon icon="@tui.eye"></tui-icon></td>
+                        <td tuiTd>{{item.email}}</td>
+                        <td tuiTd>
+                            <span class="status-badge"
+                                [ngClass]="item.status === 'active' ? 'status-paid' : 'status-unpaid'">
+                                {{ item.status }}
+                            </span>
+                        </td>
+                        <td tuiTd>{{item.role}}</td>
+                        <td tuiTd >
+                            <tui-icon icon="@tui.eye"></tui-icon>
+                        </td>
                     </tr>
                     }
                 </tbody>
             </table>
-            <div class="table-footer">
-                <tui-pagination [length]="length" [index]="index" (indexChange)="onPageChange($event)"
-                    class="pagination"></tui-pagination>
-            </div>
         </div>
+
+        <div class="table-footer">
+            <tui-pagination
+              [length]="length"
+              [index]="index"
+              (indexChange)="onPageChange($event)">
+            </tui-pagination>
+          
+            
+          </div>
     </div>
 </div>

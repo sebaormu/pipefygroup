@@ -1,8 +1,8 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { AsyncPipe, CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { TuiButton, TuiFormatNumberPipe, TuiIcon } from '@taiga-ui/core';
-import { TuiButtonSelect, TuiDataListWrapper, TuiPagination } from '@taiga-ui/kit';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TuiButton, TuiError, TuiFormatNumberPipe, TuiIcon, TuiTextfield } from '@taiga-ui/core';
+import { TuiButtonSelect, TuiDataListWrapper, TuiFieldErrorPipe, TuiPagination, TuiSkeleton } from '@taiga-ui/kit';
 import { TuiTable } from '@taiga-ui/addon-table';
 import { TuiContext, TuiStringHandler } from '@taiga-ui/cdk';
 import { TuiLet } from '@taiga-ui/cdk/directives/let';
@@ -19,76 +19,75 @@ import { catchError, of, switchMap } from 'rxjs';
     TuiDataListWrapper,
     TuiPagination,
     TuiTable,
-    TuiIcon
+    TuiIcon,
+    TuiTextfield,
+    TuiError,
+    AsyncPipe,
+    TuiFieldErrorPipe,
+    ReactiveFormsModule
   ],
   templateUrl: './list-user-component.html',
   styleUrl: './list-user-component.css'
 })
 export class ListUserComponent implements OnInit {
   protected selectedUser: any = null;
-  protected filteredData: any[] = [];
-  listUsers: any = signal([]);
-  constructor(
-    private readonly supabaseService: SupabaseService
-  ){}
+  listUsers = signal<any[]>([]);
+  allUsers = signal<any[]>([]);
+  protected isLoading = true;
+
+  protected index = 0;   
+  protected size = 10;   
+  protected length = 0; 
+  
+  protected readonly form = new FormGroup({
+      search: new FormControl('', []),
+    });
+  
+
+  constructor(private readonly supabaseService: SupabaseService) {}
 
   ngOnInit() {
-    this.filteredData = [...this.data];
-    this.length = this.data.length;
     this.getAllUsers();
   }
 
   getAllUsers(): void {
+    this.isLoading = true;
     this.supabaseService.handleAuthCallback()
       .pipe(
-        switchMap(user => {
-          return this.supabaseService.getAllUsers(user?.access_token)
-        }),
-        catchError(() => of([]))
-      ).subscribe(list => {
-        this.listUsers.set(list?.users)
-        console.log(this.listUsers())
-      })
+        switchMap(user => this.supabaseService.getAllUsers(user?.access_token)),
+        catchError(() => of({ users: [] }))
+      )
+      .subscribe(list => {
+        this.allUsers.set(list?.users)
+        this.listUsers.set(list?.users);
+        this.length = this.listUsers().length / 10;
+      });
   }
 
-protected readonly data = [
-    {
-        id: 1,
-        name: 'Alex Inkin',
-        email: 'alex.inkin@example.com',
-        balance: 1323525,
-        status: 'Activo',
-        lastLogin: '2025-09-10T10:30:00',
-        country: 'Estados Unidos'
-    },
-    {
-        id: 2,
-        name: 'Roman Sedov',
-        email: 'roman.sedov@example.com',
-        balance: 423242,
-        status: 'Inactivo',
-        lastLogin: '2025-09-08T15:45:00',
-        country: 'Rusia'
-    },
-] as const;
-
-protected index = 0;
-protected length = 10;
-protected size = 10;
-
-
+ 
   
-protected readonly items = [10, 50, 100];
-protected readonly content: TuiStringHandler<TuiContext<number>> = ({$implicit}) =>
-    `${$implicit} items per page`;
-
-  selectUser(user: any): void {
-    this.selectedUser = user;
+  get paginatedUsers() {
+    const start = this.index * this.size;
+    const end = start + this.size;
+    return this.listUsers().slice(start, end);
   }
 
   onPageChange(pageIndex: number): void {
     this.index = pageIndex;
-    // Add pagination logic here if needed
   }
 
+  onSizeChange(newSize: number): void {
+    this.size = newSize;
+    this.index = 0; 
+  }
+
+  search(): void {
+    this.listUsers.set(this.allUsers());
+    this.listUsers.set(
+      this.listUsers().filter((user: any) => {
+        return user.full_name.includes(this.form.value.search!);
+      })
+    );  
+    this.length = this.listUsers().length / 10;
+  }
 }
