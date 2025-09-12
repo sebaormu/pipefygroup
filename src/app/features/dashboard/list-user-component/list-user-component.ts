@@ -1,14 +1,12 @@
 import { Component, OnInit, signal } from '@angular/core';
-import { AsyncPipe, CommonModule } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { TuiButton, TuiError, TuiFormatNumberPipe, TuiIcon, TuiTextfield } from '@taiga-ui/core';
-import { TuiButtonSelect, TuiDataListWrapper, TuiFieldErrorPipe, TuiPagination, TuiSkeleton } from '@taiga-ui/kit';
+import { TuiError, TuiIcon, TuiTextfield } from '@taiga-ui/core';
+import {  TuiFieldErrorPipe, TuiPagination } from '@taiga-ui/kit';
 import { TuiTable } from '@taiga-ui/addon-table';
-import { TuiContext, TuiStringHandler } from '@taiga-ui/cdk';
-import { TuiLet } from '@taiga-ui/cdk/directives/let';
 import { SupabaseService } from '../../../core/services/supabase/supabase-service';
-import { catchError, of, switchMap } from 'rxjs';
 import { RouterModule } from '@angular/router';
+import { TuiForm } from '@taiga-ui/layout';
 
 
 @Component({
@@ -17,16 +15,15 @@ import { RouterModule } from '@angular/router';
   imports: [
     CommonModule,
     FormsModule,
-    TuiDataListWrapper,
     TuiPagination,
     TuiTable,
     TuiIcon,
     TuiTextfield,
     TuiError,
-    AsyncPipe,
     TuiFieldErrorPipe,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
+    TuiForm,
   ],
   templateUrl: './list-user-component.html',
   styleUrl: './list-user-component.css'

@@ -56,13 +56,13 @@
         <tui-error [error]="errorField('password')" />
         }
         <footer class="form-footer">
-            <button size="m" tuiButton type="button" class="submit-register" (click)="showDialog(template)">
+            <button size="m" tuiButton type="button" class="submit-register" [disabled]="form.invalid" (click)="showDialog(template)">
                 Guardar
             </button>
         </footer>
         <ng-template #template let-observer>
             <p>¿Estás seguro de actualizar la información del usuario?</p>
-            <button size="m" tuiButton type="button" class="submit-register-auto" (click)="withdraw(observer)">
+            <button size="m" tuiButton type="button" class="submit-register-auto"  (click)="withdraw(observer)">
                 Aceptar
             </button>
         </ng-template>
